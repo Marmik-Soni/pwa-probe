@@ -1,0 +1,15 @@
+{
+  // Tailwind v4 uses @theme, @custom-variant, @apply — disable the built-in
+  // CSS linter so VS Code stops reporting them as unknown at-rules.
+  "css.validate": false,
+  "scss.validate": false,
+
+  // Trust the shadcn/ui schema so components.json loads without warnings.
+  "json.schemaDownload.enable": true,
+  "json.schemas": [
+    {
+      "fileMatch": ["components.json"],
+      "url": "https://ui.shadcn.com/schema.json"
+    }
+  ]
+}
