@@ -108,9 +108,9 @@ jobs:
           path: coverage/
           retention-days: 14
 
-# ─────────────────────────────────────────────────────────────────────────────
-# STAGE 2 — Build (needs stage 1)
-# ─────────────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────────────────
+  # STAGE 2 — Build (needs stage 1)
+  # ─────────────────────────────────────────────────────────────────────────────
 
   build:
     name: Next.js build
@@ -153,10 +153,10 @@ jobs:
           path: .next/
           retention-days: 1
 
-# ─────────────────────────────────────────────────────────────────────────────
-# STAGE 3 — E2E tests (Playwright)
-# Uses a separate staging Supabase project — never touches production DB.
-# ─────────────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────────────────
+  # STAGE 3 — E2E tests (Playwright)
+  # Uses a separate staging Supabase project — never touches production DB.
+  # ─────────────────────────────────────────────────────────────────────────────
 
   e2e-chromium:
     name: E2E — Chromium
@@ -259,11 +259,11 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
-# ─────────────────────────────────────────────────────────────────────────────
-# STAGE 4 — Deploy (main push only, after Chromium E2E passes)
-# Vercel auto-deploy must be DISABLED in Vercel project settings.
-# Migrations run AFTER deploy (new code is backward-compatible with old schema).
-# ─────────────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────────────────
+  # STAGE 4 — Deploy (main push only, after Chromium E2E passes)
+  # Vercel auto-deploy must be DISABLED in Vercel project settings.
+  # Migrations run AFTER deploy (new code is backward-compatible with old schema).
+  # ─────────────────────────────────────────────────────────────────────────────
 
   deploy:
     name: Deploy to production
