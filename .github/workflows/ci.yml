@@ -73,7 +73,7 @@ jobs:
         run: pnpm format:check
 
       - name: ESLint — zero warnings allowed
-        run: pnpm lint -- --max-warnings 0
+        run: pnpm exec eslint . --max-warnings 0
 
   # ───────────────────────────────────────────────────────────────────────────
 
