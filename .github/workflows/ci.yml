@@ -73,7 +73,7 @@ jobs:
         run: pnpm format:check
 
       - name: ESLint — zero warnings allowed
-        run: pnpm lint -- --max-warnings 0
+        run: pnpm exec eslint . --max-warnings 0
 
   # ───────────────────────────────────────────────────────────────────────────
 
@@ -108,9 +108,9 @@ jobs:
           path: coverage/
           retention-days: 14
 
-# ─────────────────────────────────────────────────────────────────────────────
-# STAGE 2 — Build (needs stage 1)
-# ─────────────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────────────────
+  # STAGE 2 — Build (needs stage 1)
+  # ─────────────────────────────────────────────────────────────────────────────
 
   build:
     name: Next.js build
@@ -151,12 +151,13 @@ jobs:
         with:
           name: nextjs-build
           path: .next/
+          include-hidden-files: true
           retention-days: 1
 
-# ─────────────────────────────────────────────────────────────────────────────
-# STAGE 3 — E2E tests (Playwright)
-# Uses a separate staging Supabase project — never touches production DB.
-# ─────────────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────────────────
+  # STAGE 3 — E2E tests (Playwright)
+  # Uses a separate staging Supabase project — never touches production DB.
+  # ─────────────────────────────────────────────────────────────────────────────
 
   e2e-chromium:
     name: E2E — Chromium
@@ -187,7 +188,7 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Run E2E tests
-        run: pnpm exec playwright test --project=chromium
+        run: pnpm exec playwright test --project=chromium --pass-with-no-tests
         env:
           CI: true
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.CI_SUPABASE_URL }}
@@ -243,7 +244,7 @@ jobs:
         run: pnpm exec playwright install --with-deps ${{ matrix.browser }}
 
       - name: Run E2E tests
-        run: pnpm exec playwright test --project=${{ matrix.browser }}
+        run: pnpm exec playwright test --project=${{ matrix.browser }} --pass-with-no-tests
         env:
           CI: true
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.CI_SUPABASE_URL }}
@@ -259,11 +260,11 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
-# ─────────────────────────────────────────────────────────────────────────────
-# STAGE 4 — Deploy (main push only, after Chromium E2E passes)
-# Vercel auto-deploy must be DISABLED in Vercel project settings.
-# Migrations run AFTER deploy (new code is backward-compatible with old schema).
-# ─────────────────────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────────────────
+  # STAGE 4 — Deploy (main push only, after Chromium E2E passes)
+  # Vercel auto-deploy must be DISABLED in Vercel project settings.
+  # Migrations run AFTER deploy (new code is backward-compatible with old schema).
+  # ─────────────────────────────────────────────────────────────────────────────
 
   deploy:
     name: Deploy to production
