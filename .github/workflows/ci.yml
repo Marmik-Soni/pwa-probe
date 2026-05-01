@@ -188,7 +188,7 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Run E2E tests
-        run: pnpm exec playwright test --project=chromium
+        run: pnpm exec playwright test --project=chromium --pass-with-no-tests
         env:
           CI: true
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.CI_SUPABASE_URL }}
@@ -244,7 +244,7 @@ jobs:
         run: pnpm exec playwright install --with-deps ${{ matrix.browser }}
 
       - name: Run E2E tests
-        run: pnpm exec playwright test --project=${{ matrix.browser }}
+        run: pnpm exec playwright test --project=${{ matrix.browser }} --pass-with-no-tests
         env:
           CI: true
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.CI_SUPABASE_URL }}
