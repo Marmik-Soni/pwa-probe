@@ -1,3 +1,5 @@
+import { DeviceChip } from '@/components/device-chip';
+
 export default function Home() {
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-6 px-4">
@@ -12,6 +14,7 @@ export default function Home() {
           See exactly what your browser can do as a PWA. ~80 API checks, a score, and a shareable
           report.
         </p>
+        <DeviceChip className="mt-1" />
       </div>
     </main>
   );
