@@ -1,4 +1,7 @@
+import Link from 'next/link';
+
 import { DeviceChip } from '@/components/device-chip';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
   return (
@@ -15,6 +18,14 @@ export default function Home() {
           report.
         </p>
         <DeviceChip className="mt-1" />
+      </div>
+      <div className="flex flex-col items-center gap-2">
+        <Button asChild size="lg">
+          <Link href="/scan">Run Scan</Link>
+        </Button>
+        <p className="text-muted-foreground text-xs">
+          ~80 checks · Runs in your browser · No data sent
+        </p>
       </div>
     </main>
   );
