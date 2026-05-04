@@ -135,10 +135,13 @@ export const standaloneDisplayModeCheck: ApiCheck = {
         start,
       );
     }
+    // The browser fully supports standalone mode — the app just isn't installed yet.
+    // Report `partial` rather than `not_supported` so the score reflects capability,
+    // not the user's current launch context.
     return makeResult(
       standaloneDisplayModeCheck,
-      'not_supported',
-      'App is not running in standalone mode — open in a browser tab.',
+      'partial',
+      'Browser supports standalone display mode — install this app as a PWA to activate it.',
       start,
     );
   },

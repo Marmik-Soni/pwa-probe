@@ -62,13 +62,13 @@ describe('installability checks', () => {
       expect(result.status).toBe('supported');
     });
 
-    it('returns not_supported when not standalone', async () => {
+    it('returns partial when not standalone (browser supports it, app not installed)', async () => {
       vi.stubGlobal('window', {
         isSecureContext: true,
         matchMedia: () => ({ matches: false }),
       });
       const result = await standaloneDisplayModeCheck.run();
-      expect(result.status).toBe('not_supported');
+      expect(result.status).toBe('partial');
     });
   });
 });
