@@ -2,7 +2,7 @@
 
 import { useEffect, useReducer, useRef } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, RefreshCw } from 'lucide-react';
+import { ArrowLeft, Download, RefreshCw } from 'lucide-react';
 
 import { AdvisoryCard } from '@/components/advisory-card';
 import { CategoryBar } from '@/components/category-bar';
@@ -11,6 +11,7 @@ import { DeviceChip } from '@/components/device-chip';
 import { ScanProgress } from '@/components/scan-progress';
 import { ScoreRing } from '@/components/score-ring';
 import { Button } from '@/components/ui/button';
+import { downloadReport } from '@/lib/download-report';
 import { generateAdvisories } from '@/engine/advisor';
 import { detectBrowser, detectDevice } from '@/engine/fingerprint';
 import { CHECK_REGISTRY, runScan } from '@/engine/runner';
@@ -297,8 +298,12 @@ export default function ScanPage() {
         ))}
       </section>
 
-      {/* Re-scan */}
-      <div className="flex justify-center pb-4">
+      {/* Actions */}
+      <div className="flex flex-wrap justify-center gap-3 pb-4">
+        <Button variant="outline" onClick={() => downloadReport(state)}>
+          <Download className="h-4 w-4" />
+          Download Report
+        </Button>
         <Button variant="outline" onClick={startScan}>
           <RefreshCw className="h-4 w-4" />
           Re-scan
